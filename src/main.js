@@ -17,6 +17,7 @@ let page = 1;
 let searchQuery = null;
 let perPage = 15;
 let lastPage = 0;
+let cardHeight = null;
 
 const onSubmit = async e => {
   e.preventDefault();
@@ -76,6 +77,15 @@ const onClick = async e => {
     const data = await getImagesByQuery(searchQuery, page);
 
     createGallery(data.hits);
+
+    cardHeight = document
+      .querySelector('.gallery-item')
+      .getBoundingClientRect().height;
+
+    window.scrollBy({
+      top: cardHeight * 2 + 40,
+      behavior: 'smooth',
+    });
 
     if (page >= lastPage) {
       hideLoadMoreButton();
