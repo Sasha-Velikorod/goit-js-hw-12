@@ -30,8 +30,7 @@ const onSubmit = async e => {
 
   if (searchQuery === '') {
     iziToast.error({
-      message:
-        'Sorry, there are no images matching your search query. Please try again!',
+      message: 'Please enter a valid search query.',
       position: 'topRight',
     });
     return;
@@ -62,7 +61,9 @@ const onSubmit = async e => {
       hideLoadMoreButton();
     }
   } catch (error) {
-    console.log(error);
+    iziToast.error({
+      message: error,
+    });
     hideLoadMoreButton();
   } finally {
     hideLoader();
@@ -83,7 +84,7 @@ const onClick = async e => {
       .getBoundingClientRect().height;
 
     window.scrollBy({
-      top: cardHeight * 2 + 40,
+      top: cardHeight * 2,
       behavior: 'smooth',
     });
 
@@ -95,7 +96,9 @@ const onClick = async e => {
       });
     }
   } catch (error) {
-    console.log(error);
+    iziToast.error({
+      message: error,
+    });
   } finally {
     hideLoader();
     if (page < lastPage) {
